@@ -27,14 +27,14 @@ void main_task(__unused void *params) {
         .dhcp = NETINFO_STATIC
     };
 
-    if (ethernet_init(&eth_config) != 0) {
-        printf("[ERRO] Falha na inicialização do Ethernet. Tarefa Interrompida.\n");
-        vTaskDelete(NULL);
-    }
-
     if (sensors_init() != 0) {
         printf("[ERRO] Falha na inicializacao dos sensores. Tarefa Interrompida.\n");
         vTaskDelete(NULL); 
+    }
+
+    if (ethernet_init(&eth_config) != 0) {
+        printf("[ERRO] Falha na inicialização do Ethernet. Tarefa Interrompida.\n");
+        vTaskDelete(NULL);
     }
 
     printf("[INFO] Iniciando ciclos de envio a cada %d segundos.\n", CYCLE_INTERVAL_MS / 1000);

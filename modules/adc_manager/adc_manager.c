@@ -44,8 +44,7 @@ bool adc_module_is_connected() {
     // um valor >= 0 em caso de sucesso ou um código de erro negativo em caso de falha (timeout, NACK).
 
     int result = i2c_read_timeout_us(I2C_PORT, ADS1115_I2C_ADDR, &dummy_byte, 1, false, ADC_CONNECTION_CHECK_TIMEOUT_MS * 1000);
-    // return result == 1;
-    return 1;
+    return result == 1;
 }
 
 /**

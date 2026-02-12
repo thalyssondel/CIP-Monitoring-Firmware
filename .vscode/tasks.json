@@ -18,8 +18,28 @@
             }
         },
         {
+            "label": "Reboot to BOOTSEL",
+            "type": "process",
+            "command": "${env:HOME}/.pico-sdk/picotool/2.1.1/picotool/picotool",
+            "args": [
+                "reboot",
+                "-f",
+                "-u"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "close": true
+            },
+            "problemMatcher": [],
+            "windows": {
+                "command": "${env:USERPROFILE}/.pico-sdk/picotool/2.1.1/picotool/picotool.exe"
+            }
+        },
+        {
             "label": "Run Project",
             "type": "process",
+            "dependsOn": ["Compile Project", "Reboot to BOOTSEL"], 
             "command": "${env:HOME}/.pico-sdk/picotool/2.1.1/picotool/picotool",
             "args": [
                 "load",
@@ -51,7 +71,7 @@
             ],
             "problemMatcher": [],
             "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
+                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe"
             }
         },
         {
@@ -70,7 +90,7 @@
             ],
             "problemMatcher": [],
             "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
+                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe"
             }
         },
         {
@@ -95,7 +115,7 @@
             ],
             "problemMatcher": [],
             "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
+                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe"
             }
         }
     ]
