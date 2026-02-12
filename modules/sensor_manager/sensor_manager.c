@@ -64,23 +64,26 @@ int sensors_read_all(sensors_reading_t* reading) {
         return 1;
     }
 
-    // // Verificação da conexão com o módulo ADC ADS1115.
-    // if (!adc_module_is_connected()) {
-    //     printf("[ERRO EM EXECUÇÃO] Perda de comunicação com o ADC.\n");
-    //     reading->temperature_c = SENSOR_READ_ERROR;
-    //     reading->conductivity_percent = SENSOR_READ_ERROR;
-    //     reading->flow_liter = SENSOR_READ_ERROR;
-    //     return 1;
-    // }
+    // Verificação da conexão com o módulo ADC ADS1115.
+    if (!adc_module_is_connected()) {
+        printf("[ERRO EM EXECUÇÃO] Perda de comunicação com o ADC.\n");
+        reading->temperature = SENSOR_READ_ERROR;
+        reading->conductivity = SENSOR_READ_ERROR;
+        reading->flow = SENSOR_READ_ERROR;
+        return 1;
+    }
 
-    // float temp_v, cond_v, flow_v;
+    float temp_v, cond_v, flow_v;
 
-    // analog_sensor_read(&temperature_sensor, &temp_v, &reading->temperature_c);
-    // analog_sensor_read(&conductivity_sensor, &cond_v, &reading->conductivity_percent);
-    // analog_sensor_read(&flow_sensor, &flow_v, &reading->flow_liter);
+    analog_sensor_read(&temperature_sensor, &temp_v, &reading->temperature);
+    analog_sensor_read(&conductivity_sensor, &cond_v, &reading->conductivity);
+    analog_sensor_read(&flow_sensor, &flow_v, &reading->flow);
 
     printf("[DADOS] Temp: %.2f C (%.5f V) | Cond: %.2f %% (%.5f V) | Flow: %.2f L/min (%.5f V)\n", 
-           1,1,1,1,1,1
+           reading->temperature, temp_v, 
+           reading->conductivity, cond_v, 
+           reading->flow, flow_v
     );
+    
     return 0;
 }
